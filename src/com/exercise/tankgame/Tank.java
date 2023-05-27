@@ -15,9 +15,9 @@ public class Tank {
     public Tank(int x, int y, int direction, int speed, int type) {
         this.x = x;
         this.y = y;
-        this.direction = direction;
+        this.direction = direction; // 0: up, 1: down, 2: left, 3: right
         this.speed = speed;
-        this.type = type;
+        this.type = type;   // 0: my tank, 1: enemy tank
     }
 
     public void moveUp() {

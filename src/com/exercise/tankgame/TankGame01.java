@@ -16,6 +16,7 @@ public class TankGame01 extends JFrame {
     public TankGame01() {
         panel = new Panel();
         this.add(panel);
+        this.addKeyListener(panel);
         this.setSize(1000, 750);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
