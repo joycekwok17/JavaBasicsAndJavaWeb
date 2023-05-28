@@ -7,6 +7,7 @@ package com.exercise.threaduse;
 public class Thread01 {
     public static void main(String[] args) {
         MyThread myThread = new MyThread();
+        // start0() is a native method
         myThread.start();
         // main thread and myThread are running concurrently
         // death of main thread doesn't mean death of myThread or death of the program
