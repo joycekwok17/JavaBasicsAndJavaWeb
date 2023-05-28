@@ -11,14 +11,20 @@ import java.util.Vector;
  * @project TankGameHSP
  * @created 5/26/23
  */
-public class Panel extends JPanel implements KeyListener {
+public class Panel extends JPanel implements KeyListener, Runnable {
     MyTank myTank = null;
     Vector<EnemyTank> enemyTanks = new Vector<>();
     int enemyTankNum = 3;
     public Panel() {
-        myTank = new MyTank(100, 100, 1, 5, 0); // create my tank
+        myTank = new MyTank(100, 100, 3,5, 0); // create my tank
         for (int i = 0; i < enemyTankNum; i++) {
-            enemyTanks.add(new EnemyTank(100 * (i + 1), 0, 2, 5, 1)); // create enemy tanks
+            EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0, 2, 5, 1);
+            Shot shot = new Shot(enemyTank.getX() + 10, enemyTank.getY() + 35, enemyTank.getDirection());
+            enemyTank.shots.add(shot);
+            Thread thread = new Thread(shot);
+            thread.start();
+            enemyTanks.add(enemyTank); // create enemy tanks
+
         }
     }
 
@@ -27,8 +33,18 @@ public class Panel extends JPanel implements KeyListener {
         super.paint(g);
         g.fillRect(0, 0, 1000, 750); // draw background
         drawTank(myTank.getX(), myTank.getY(), g, myTank.getDirection(), myTank.getType()); // draw my tank
+        if (myTank.shot != null && myTank.shot.isLive) {
+            g.draw3DRect(myTank.shot.x, myTank.shot.y, 1, 1, false);
+        }
         for (EnemyTank enemyTank : enemyTanks) {
             drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirection(), enemyTank.getType()); // draw enemy tanks
+            for (Shot shot : enemyTank.shots) {
+                if (shot.isLive) {
+                    g.draw3DRect(shot.x, shot.y, 1, 1, false);
+                }else {
+                    enemyTank.shots.remove(shot);
+                }
+            }
         }
     }
 
@@ -69,6 +85,23 @@ public class Panel extends JPanel implements KeyListener {
         }
     }
 
+    public static void hitTank(Shot s, EnemyTank enemyTank) {
+        switch (enemyTank.getDirection()) {
+            case 0, 2 -> {
+                if (s.x > enemyTank.getX() && s.x < enemyTank.getX() + 20 && s.y > enemyTank.getY() && s.y < enemyTank.getY() + 30) {
+                    s.isLive = false;
+                    enemyTank.isLive = false;
+                }
+            }
+            case 1, 3 -> {
+                if (s.x > enemyTank.getX() && s.x < enemyTank.getX() + 30 && s.y > enemyTank.getY() && s.y < enemyTank.getY() + 20) {
+                    s.isLive = false;
+                    enemyTank.isLive = false;
+                }
+            }
+        }
+    }
+
     /**
      * Invoked when a key has been typed.
      * See the class description for {@link KeyEvent} for a definition of
@@ -102,6 +135,9 @@ public class Panel extends JPanel implements KeyListener {
         } else if(e.getKeyCode() == KeyEvent.VK_A) {
             myTank.setDirection(3);
             myTank.moveLeft();
+        } else if(e.getKeyCode() == KeyEvent.VK_J) {
+            System.out.println("shot");
+            myTank.shotEnemy();
         }
         this.repaint(); // repaint the panel
     }
@@ -116,5 +152,17 @@ public class Panel extends JPanel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
 
+    }
+    @Override
+    public void run() { // repaint the panel every 50ms to make the shot move
+
+        while (true) {
+            try {
+            Thread.sleep(50);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            this.repaint();
+        }
     }
 }

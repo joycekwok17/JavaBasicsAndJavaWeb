@@ -15,6 +15,7 @@ public class TankGame01 extends JFrame {
 
     public TankGame01() {
         panel = new Panel();
+        new Thread(panel).start();
         this.add(panel);
         this.addKeyListener(panel);
         this.setSize(1000, 750);
