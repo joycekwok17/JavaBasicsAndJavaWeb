@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Vector;
 
 /**
@@ -14,6 +15,7 @@ import java.util.Vector;
 public class Panel extends JPanel implements KeyListener, Runnable {
     MyTank myTank = null;
     Vector<EnemyTank> enemyTanks = new Vector<>();
+    Vector<Node> nodes = new Vector<>();
     Vector<Bomb> bombs = new Vector<>();
     int enemyTankNum = 3;
 
@@ -22,29 +24,64 @@ public class Panel extends JPanel implements KeyListener, Runnable {
     Image image3 = null;
 
 
-    public Panel() {
-        myTank = new MyTank(100, 100, 3,5, 0); // create my tank
+    public Panel(String choice) throws IOException {
+        Recorder.setEnemyTanks(enemyTanks);
+        myTank = new MyTank(500, 500, 3,5, 0); // create my tank
 
-        for (int i = 0; i < enemyTankNum; i++) {
-            EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0, 2, 1, 1);
-            Thread thread1 = new Thread(enemyTank);
-            thread1.start();
-            Shot shot = new Shot(enemyTank.getX() + 10, enemyTank.getY() + 35, enemyTank.getDirection());
-            enemyTank.shots.add(shot);
-            Thread thread = new Thread(shot);
-            thread.start();
-            enemyTanks.add(enemyTank); // create enemy tanks
+        switch (choice) {
+            case "1" -> {
+                Recorder.setAllEnemyTankNum(enemyTankNum);
+                for (int i = 0; i < enemyTankNum; i++) {
+                    EnemyTank enemyTank = new EnemyTank(100 * (i + 1), 0, 2, 1, 1);
+                    Thread thread1 = new Thread(enemyTank);
+                    thread1.start();
+                    Shot shot = new Shot(enemyTank.getX() + 10, enemyTank.getY() + 35, enemyTank.getDirection());
+                    enemyTank.shots.add(shot);
+                    Thread thread = new Thread(shot);
+                    thread.start();
+                    enemyTanks.add(enemyTank); // create enemy tanks
+                    enemyTank.setEnemyTanks(enemyTanks);
+                }
+            }
+            case "2" -> {
+                nodes = Recorder.getNodesAndEnemyTanks();
+                for (Node node : nodes) {
+                    EnemyTank enemyTank = new EnemyTank(node.x, node.y, node.direction, 1, 1);
+                    Thread thread1 = new Thread(enemyTank);
+                    thread1.start();
+                    Shot shot = new Shot(enemyTank.getX() + 10, enemyTank.getY() + 35, enemyTank.getDirection());
+                    enemyTank.shots.add(shot);
+                    Thread thread = new Thread(shot);
+                    thread.start();
+                    enemyTanks.add(enemyTank); // create enemy tanks
+                    enemyTank.setEnemyTanks(enemyTanks);
+                }
+            }
+            default -> {
+                System.out.println("Invalid input!");
+                System.exit(0);
+            }
         }
 
         image1 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/bomb_1.gif"));
         image2 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/bomb_2.gif"));
         image3 = Toolkit.getDefaultToolkit().getImage(Panel.class.getResource("/bomb_3.gif"));
+
+    }
+
+    public void showInfo(Graphics g){
+        g.setColor(Color.BLACK);
+        Font font = new Font("Times New Roman", Font.BOLD, 20);
+        g.setFont(font);
+        g.drawString("You have " + Recorder.getAllEnemyTankNum() + " enemy tanks left", 1020, 50);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         g.fillRect(0, 0, 1000, 750); // draw background
+        showInfo(g);
+
         if (myTank != null && myTank.isLive) {
             drawTank(myTank.getX(), myTank.getY(), g, myTank.getDirection(), myTank.getType()); // draw my tank
         }
@@ -156,6 +193,9 @@ public class Panel extends JPanel implements KeyListener, Runnable {
                     s.isLive = false;
                     enemyTank.isLive = false;
                     enemyTanks.remove(enemyTank);
+                    if (enemyTank instanceof EnemyTank) {
+                        Recorder.addEnemyTankNum();
+                    }
                     Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
                     bombs.add(bomb);
                 }
@@ -165,6 +205,9 @@ public class Panel extends JPanel implements KeyListener, Runnable {
                     s.isLive = false;
                     enemyTank.isLive = false;
                     enemyTanks.remove(enemyTank);
+                    if (enemyTank instanceof EnemyTank) {
+                        Recorder.addEnemyTankNum();
+                    }
                     Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
                     bombs.add(bomb);
                 }

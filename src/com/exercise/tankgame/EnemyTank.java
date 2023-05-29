@@ -8,6 +8,7 @@ import java.util.Vector;
  */
 public class EnemyTank extends Tank implements Runnable{
     Vector<Shot> shots = new Vector<>();
+    Vector<EnemyTank> enemyTanks = new Vector<>();
     boolean isLive = true;
     public EnemyTank(int x, int y, int direction, int speed, int type) {
         super(x, y, direction, speed, type);
@@ -18,6 +19,74 @@ public class EnemyTank extends Tank implements Runnable{
         this.shots = shots;
     }
 
+    public void setEnemyTanks(Vector<EnemyTank> enemyTanks) { // set enemy tanks from panel
+        this.enemyTanks = enemyTanks;
+    }
+
+    public boolean isTouchEnemyTank() {
+        switch (this.getDirection()) {
+            case 0 -> {
+                for (EnemyTank enemyTank : enemyTanks) {
+                    if (enemyTank != this) {
+                        if (this.getX() >= enemyTank.getX() && this.getX() <= enemyTank.getX() + 30
+                                && this.getY() >= enemyTank.getY() && this.getY() <= enemyTank.getY() + 30) {
+                            return true;
+                        }
+                        if (this.getX() + 30 >= enemyTank.getX() && this.getX() + 30 <= enemyTank.getX() + 30
+                                && this.getY() >= enemyTank.getY() && this.getY() <= enemyTank.getY() + 30) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            case 1 -> {
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    if (enemyTank != this) {
+                        if (this.getX() + 30 >= enemyTank.getX() && this.getX() + 30 <= enemyTank.getX() + 30
+                                && this.getY() >= enemyTank.getY() && this.getY() <= enemyTank.getY() + 30) {
+                            return true;
+                        }
+                        if (this.getX() + 30 >= enemyTank.getX() && this.getX() + 30 <= enemyTank.getX() + 30
+                                && this.getY() + 30 >= enemyTank.getY() && this.getY() + 30 <= enemyTank.getY() + 30) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            case 2 -> {
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    if (enemyTank != this) {
+                        if (this.getX() >= enemyTank.getX() && this.getX() <= enemyTank.getX() + 30
+                                && this.getY() + 30 >= enemyTank.getY() && this.getY() + 30 <= enemyTank.getY() + 30) {
+                            return true;
+                        }
+                        if (this.getX() + 30 >= enemyTank.getX() && this.getX() + 30 <= enemyTank.getX() + 30
+                                && this.getY() + 30 >= enemyTank.getY() && this.getY() + 30 <= enemyTank.getY() + 30) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            case 3-> {
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    if (enemyTank != this) {
+                        if (this.getX() >= enemyTank.getX() && this.getX() <= enemyTank.getX() + 30
+                                && this.getY() >= enemyTank.getY() && this.getY() <= enemyTank.getY() + 30) {
+                            return true;
+                        }
+                        if (this.getX() >= enemyTank.getX() && this.getX() <= enemyTank.getX() + 30
+                                && this.getY() + 30 >= enemyTank.getY() && this.getY() + 30 <= enemyTank.getY() + 30) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     @Override
     public void run() {
@@ -40,7 +109,7 @@ public class EnemyTank extends Tank implements Runnable{
                 switch (this.getDirection()) {
                     case 0 -> {
                         for (int i = 0;i < 30; i++) {
-                            if (this.getY() > 0) {
+                            if (this.getY() > 0 && !this.isTouchEnemyTank()) {
                                 this.moveUp();
                             }
                             try {
@@ -52,7 +121,7 @@ public class EnemyTank extends Tank implements Runnable{
                     }
                     case 1 -> {
                         for (int i = 0;i < 30; i++) {
-                            if (this.getX() < 1000 - 60) {
+                            if (this.getX() < 1000 - 60 && !this.isTouchEnemyTank()) {
                                 this.moveRight();
                             }
                             try {
@@ -64,7 +133,7 @@ public class EnemyTank extends Tank implements Runnable{
                     }
                     case 2 -> {
                         for (int i = 0;i < 30; i++) {
-                            if (this.getY() < 750 - 60) {
+                            if (this.getY() < 750 - 60  && !this.isTouchEnemyTank()) {
                                 this.moveDown();
                             }
                             try {
@@ -76,7 +145,7 @@ public class EnemyTank extends Tank implements Runnable{
                     }
                     case 3 -> {
                         for (int i = 0;i < 30; i++) {
-                            if (this.getX() > 0) {
+                            if (this.getX() > 0 && !this.isTouchEnemyTank()) {
                                 this.moveLeft();
                             }
                             try {
