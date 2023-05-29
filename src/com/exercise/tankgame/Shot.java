@@ -32,7 +32,7 @@ public class Shot implements Runnable{
                 case 3 -> x -= speed;   // left
             }
             System.out.println("Shot: x=" + x + ", y=" + y);
-        } while (x >= 0 && x <= 1000 && y >= 0 && y <= 750);
+        } while (x >= 0 && x <= 1000 && y >= 0 && y <= 750 && isLive);
         isLive = false;
     }
 }
