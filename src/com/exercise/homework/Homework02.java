@@ -20,6 +20,7 @@ public class Homework02 {
 class WithdrawMoney implements Runnable {
     private int total = 10000;
     private int money = 1000;
+
     @Override
     public void run() {
         while (true) {

@@ -17,37 +17,36 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = "/loginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/registerServlet")
+public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        System.out.println(username + " " + password);
+        User user1 = new User();
+        user1.setUsername(username);
+        user1.setPassword(password);
 
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory(); // 获取 SqlSessionFactory 对象 (单例模式)  (SqlSessionFactoryUtils.java)
 
-        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
-
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();  // 获取 SqlSession 对象
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
-        User user = mapper.select(username, password);
+        User user = mapper.selectByUsername(username);
 
-        sqlSession.close();
-
-        response.setContentType("text/html;charset=utf-8");
-        PrintWriter writer = response.getWriter();
-
-        if (user != null) {
-//            request.setAttribute("user", user);
-//            request.getRequestDispatcher("/success.jsp").forward(request, response);
-            writer.println("Login Success!");
+        if (user == null) {
+            mapper.add(user1);
+            sqlSession.commit(); // 提交事务 (必须手动提交) (不然数据库中不会有数据)
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().println("Register successfully!");
+            sqlSession.close();
         } else {
-            //            request.getRequestDispatcher("/fail.jsp").forward(request, response);
-            writer.println("Login Fail!");
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().println("Username already exists!");
         }
+        sqlSession.close();
     }
 
     @Override

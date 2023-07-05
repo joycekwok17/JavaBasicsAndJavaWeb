@@ -7,9 +7,10 @@ import java.util.Vector;
  * @project TankGameHSP
  * @created 5/26/23
  */
-public class MyTank extends Tank{
+public class MyTank extends Tank {
     Shot shot = null;
     Vector<Shot> shots = new Vector<>();
+
     public MyTank(int x, int y, int direction, int speed, int type) {
         super(x, y, direction, speed, type);
     }

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 @WebServlet(urlPatterns = "/req2", loadOnStartup = 1)
 
 public class requestDemo2 extends HttpServlet {

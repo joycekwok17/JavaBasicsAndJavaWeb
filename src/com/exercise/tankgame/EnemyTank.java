@@ -6,10 +6,11 @@ import java.util.Vector;
  * @author Xuanchi GUO
  * @created 27.05.23
  */
-public class EnemyTank extends Tank implements Runnable{
+public class EnemyTank extends Tank implements Runnable {
     Vector<Shot> shots = new Vector<>();
     Vector<EnemyTank> enemyTanks = new Vector<>();
     boolean isLive = true;
+
     public EnemyTank(int x, int y, int direction, int speed, int type) {
         super(x, y, direction, speed, type);
     }
@@ -69,7 +70,7 @@ public class EnemyTank extends Tank implements Runnable{
                     }
                 }
             }
-            case 3-> {
+            case 3 -> {
                 for (int i = 0; i < enemyTanks.size(); i++) {
                     EnemyTank enemyTank = enemyTanks.get(i);
                     if (enemyTank != this) {
@@ -90,11 +91,11 @@ public class EnemyTank extends Tank implements Runnable{
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
 
-            if (isLive && shots.size() < 1){  // multiple shots
+            if (isLive && shots.size() < 1) {  // multiple shots
                 Shot s = null;
-                switch (getDirection()){
+                switch (getDirection()) {
                     case 0 -> s = new Shot(getX() + 10, getY(), getDirection());
                     case 1 -> s = new Shot(getX() + 35, getY() + 10, getDirection());
                     case 2 -> s = new Shot(getX() + 10, getY() + 35, getDirection());
@@ -108,7 +109,7 @@ public class EnemyTank extends Tank implements Runnable{
             if (isLive) {
                 switch (this.getDirection()) {
                     case 0 -> {
-                        for (int i = 0;i < 30; i++) {
+                        for (int i = 0; i < 30; i++) {
                             if (this.getY() > 0 && !this.isTouchEnemyTank()) {
                                 this.moveUp();
                             }
@@ -120,7 +121,7 @@ public class EnemyTank extends Tank implements Runnable{
                         }
                     }
                     case 1 -> {
-                        for (int i = 0;i < 30; i++) {
+                        for (int i = 0; i < 30; i++) {
                             if (this.getX() < 1000 - 60 && !this.isTouchEnemyTank()) {
                                 this.moveRight();
                             }
@@ -132,8 +133,8 @@ public class EnemyTank extends Tank implements Runnable{
                         }
                     }
                     case 2 -> {
-                        for (int i = 0;i < 30; i++) {
-                            if (this.getY() < 750 - 60  && !this.isTouchEnemyTank()) {
+                        for (int i = 0; i < 30; i++) {
+                            if (this.getY() < 750 - 60 && !this.isTouchEnemyTank()) {
                                 this.moveDown();
                             }
                             try {
@@ -144,7 +145,7 @@ public class EnemyTank extends Tank implements Runnable{
                         }
                     }
                     case 3 -> {
-                        for (int i = 0;i < 30; i++) {
+                        for (int i = 0; i < 30; i++) {
                             if (this.getX() > 0 && !this.isTouchEnemyTank()) {
                                 this.moveLeft();
                             }

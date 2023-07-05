@@ -19,7 +19,7 @@ public class Thread05 {
     }
 }
 
-class SellTicket implements Runnable{
+class SellTicket implements Runnable {
     private int ticketNum = 100; //
     private boolean flag = true;
 

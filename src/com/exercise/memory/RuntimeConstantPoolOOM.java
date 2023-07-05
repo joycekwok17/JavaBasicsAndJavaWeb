@@ -8,7 +8,7 @@ import java.util.Set;
  * @project TankGameHSP
  * @created 6/20/23
  * VM Args：-XX:PermSize=6M -XX:MaxPermSize=6M
- * */
+ */
 public class RuntimeConstantPoolOOM {
     public static void main(String[] args) {
         // 使用Set保持着常量池引用，避免Full GC回收常量池行为

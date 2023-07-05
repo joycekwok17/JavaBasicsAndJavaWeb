@@ -5,7 +5,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import java.util.Map;
  * @project TankGameHSP
  * @created 7/3/23
  */
-@WebServlet(urlPatterns = "/req1100", loadOnStartup = 1)
+@WebServlet(urlPatterns = "/req4", loadOnStartup = 1)
 public class Servlet4 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,7 +24,7 @@ public class Servlet4 extends HttpServlet {
 //        String header = req.getHeader("User-Agent");
 //        System.out.println(header);
         Map<String, String[]> parameterMap = req.getParameterMap();
-        for(String key: parameterMap.keySet()){
+        for (String key : parameterMap.keySet()) {
             String[] values = parameterMap.get(key);
             System.out.println(key + " = " + String.join(",", values));
         }

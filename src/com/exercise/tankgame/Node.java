@@ -5,7 +5,7 @@ package com.exercise.tankgame;
  * @project TankGameHSP
  * @created 5/29/23
  * save info of an enemy tank
- * */
+ */
 public class Node {
     int x;
     int y;

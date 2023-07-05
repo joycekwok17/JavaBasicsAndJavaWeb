@@ -25,6 +25,7 @@ public class Thread01 {
 
 class MyThread extends Thread {
     int counter = 0;
+
     @Override
     public void run() {
         do {

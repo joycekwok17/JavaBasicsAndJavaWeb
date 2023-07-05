@@ -20,7 +20,8 @@ public class Thread04 {
         }
     }
 }
-class MyDaemon extends Thread{
+
+class MyDaemon extends Thread {
     @Override
     public void run() {
         while (true) {

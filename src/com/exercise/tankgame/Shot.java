@@ -4,7 +4,7 @@ package com.exercise.tankgame;
  * @author Xuanchi GUO
  * @created 28.05.23
  */
-public class Shot implements Runnable{
+public class Shot implements Runnable {
     int x;
     int y;
     int direct = 0;

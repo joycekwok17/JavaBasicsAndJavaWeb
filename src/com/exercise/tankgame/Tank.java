@@ -48,15 +48,19 @@ public class Tank {
     public int getX() {
         return x;
     }
+
     public int getY() {
         return y;
     }
+
     public int getDirection() {
         return direction;
     }
+
     public int getSpeed() {
         return speed;
     }
+
     public int getType() {
         return type;
     }

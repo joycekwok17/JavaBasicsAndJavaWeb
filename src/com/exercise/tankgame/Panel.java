@@ -26,7 +26,7 @@ public class Panel extends JPanel implements KeyListener, Runnable {
 
     public Panel(String choice) throws IOException {
         Recorder.setEnemyTanks(enemyTanks);
-        myTank = new MyTank(500, 500, 3,5, 0); // create my tank
+        myTank = new MyTank(500, 500, 3, 5, 0); // create my tank
 
         switch (choice) {
             case "1" -> {
@@ -69,7 +69,7 @@ public class Panel extends JPanel implements KeyListener, Runnable {
 
     }
 
-    public void showInfo(Graphics g){
+    public void showInfo(Graphics g) {
         g.setColor(Color.BLACK);
         Font font = new Font("Times New Roman", Font.BOLD, 20);
         g.setFont(font);
@@ -90,25 +90,25 @@ public class Panel extends JPanel implements KeyListener, Runnable {
         for (Shot shot : myTank.shots) {
             if (shot.isLive) {
                 g.draw3DRect(shot.x, shot.y, 1, 1, false); // draw my tank's shots
-            }else {
+            } else {
                 myTank.shots.remove(shot); // remove dead shots
             }
         }
 
         for (EnemyTank enemyTank : enemyTanks) {
-            if (enemyTank.isLive){
+            if (enemyTank.isLive) {
                 drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirection(), enemyTank.getType()); // draw enemy tanks
                 for (Shot shot : enemyTank.shots) {
                     if (shot.isLive) {
                         g.draw3DRect(shot.x, shot.y, 1, 1, false);  // draw enemy tanks' shots
-                    }else {
+                    } else {
                         enemyTank.shots.remove(shot); // remove dead shots
                     }
                 }
             }
         }
 
-        for (Bomb bomb: bombs) {
+        for (Bomb bomb : bombs) {
             if (bomb.life > 6) {
                 g.drawImage(image1, bomb.x, bomb.y, 30, 30, this);
             } else if (bomb.life > 3) {
@@ -161,8 +161,7 @@ public class Panel extends JPanel implements KeyListener, Runnable {
     }
 
 
-
-    public void hitEnemy(){
+    public void hitEnemy() {
         for (Shot s : myTank.shots) {
             if (s.isLive) {
                 for (EnemyTank enemyTank : enemyTanks) {
@@ -236,27 +235,27 @@ public class Panel extends JPanel implements KeyListener, Runnable {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_W) {
+        if (e.getKeyCode() == KeyEvent.VK_W) {
             myTank.setDirection(0);
             if (myTank.getY() > 0) {
                 myTank.moveUp();
             }
-        } else if(e.getKeyCode() == KeyEvent.VK_D) {
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {
             myTank.setDirection(1);
             if (myTank.getX() + 35 < 1000) {
                 myTank.moveRight();
             }
-        } else if(e.getKeyCode() == KeyEvent.VK_S) {
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
             myTank.setDirection(2);
             if (myTank.getY() + 35 < 750) {
                 myTank.moveDown();
             }
-        } else if(e.getKeyCode() == KeyEvent.VK_A) {
+        } else if (e.getKeyCode() == KeyEvent.VK_A) {
             myTank.setDirection(3);
             if (myTank.getX() > 0) {
                 myTank.moveLeft();
             }
-        } else if(e.getKeyCode() == KeyEvent.VK_J) {
+        } else if (e.getKeyCode() == KeyEvent.VK_J) {
             System.out.println("shot");
             myTank.shotEnemy();
         }
@@ -274,12 +273,13 @@ public class Panel extends JPanel implements KeyListener, Runnable {
     public void keyReleased(KeyEvent e) {
 
     }
+
     @Override
     public void run() { // repaint the panel every 50ms to make the shot move
 
         while (true) {
             try {
-            Thread.sleep(50);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

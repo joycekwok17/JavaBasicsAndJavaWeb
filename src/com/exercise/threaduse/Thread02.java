@@ -14,9 +14,11 @@ public class Thread02 {
 
 class ThreadProxy implements Runnable {
     private Runnable target = null;
+
     public ThreadProxy(Runnable target) {
         this.target = target;
     }
+
     @Override
     public void run() {
         if (target != null) {
@@ -33,6 +35,7 @@ class ThreadProxy implements Runnable {
 
 class Dog implements Runnable {
     int counter = 0;
+
     @Override
     public void run() {
         do {

@@ -12,6 +12,7 @@ import java.io.IOException;
  */
 public class TankGame01 extends JFrame {
     Panel panel;
+
     public static void main(String[] args) throws IOException {
 
         new TankGame01();
