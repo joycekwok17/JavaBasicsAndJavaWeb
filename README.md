@@ -1,4 +1,6 @@
 # TankGame
 
 ## excercise for java from HSP teaching videos
-## java web courses from HEIMA@bibi.com
+## java web courses from HEIMA bilibili
+### Module tomcat-demo includes: tomcat, servlet, jsp, mybatis, jdbc...
+### Module brand.demo includes: MVC, jsp, servlet, mybatis....
