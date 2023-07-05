@@ -14,6 +14,7 @@ import java.util.List;
 @WebServlet(urlPatterns = "/selectAllServlet")
 public class SelectAllServlet extends HttpServlet {
     private BrandService brandService = new BrandService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

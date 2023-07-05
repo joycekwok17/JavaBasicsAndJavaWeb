@@ -88,7 +88,7 @@ public class BrandService {
     }
 
     // 删除品牌
-    public void deleteById(int id){
+    public void deleteById(int id) {
         SqlSession sqlSession = factory.openSession();
         BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
         mapper.deleteById(id);

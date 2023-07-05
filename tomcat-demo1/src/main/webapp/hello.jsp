@@ -22,7 +22,7 @@
 <%=a%>
 
 <%!
-    void test(){
+    void test() {
         String name = "tom";
     }
 %>

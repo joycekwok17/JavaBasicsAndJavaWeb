@@ -13,10 +13,7 @@
 </head>
 <body>
 
-  ${brands}
-
-
-
+${brands}
 
 
 </body>
