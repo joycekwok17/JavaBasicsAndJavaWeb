@@ -9,7 +9,13 @@
         <option value="$PROJECT_DIR$/jdbc-demo/pom.xml" />
         <option value="$PROJECT_DIR$/brand-demo/pom.xml" />
         <option value="$PROJECT_DIR$/TankGame/pom.xml" />
+        <option value="$PROJECT_DIR$/filter-demp/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/filter-demp/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="17" project-jdk-type="JavaSDK">

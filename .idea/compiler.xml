@@ -13,5 +13,8 @@
         <module name="TankGame" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="filter-demp" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
