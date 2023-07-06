@@ -7,10 +7,12 @@
         <option value="$PROJECT_DIR$/tomcat-demo1/pom.xml" />
         <option value="$PROJECT_DIR$/mybatis-demo/pom.xml" />
         <option value="$PROJECT_DIR$/jdbc-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/brand-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/TankGame/pom.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="17" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+    <output url="file://$PROJECT_DIR$/TankGame/out" />
   </component>
 </project>
